@@ -1,8 +1,16 @@
 express = require 'express'
 router = express.Router()
+nodemailer = require 'nodemailer'
 passport = require 'passport'
 LocalStrategy = require('passport-local').Strategy
 User = require('../models/User')
+
+transporter = nodemailer.createTransport(
+    service: 'gmail'
+    auth:
+        user: 'perpustakaanonline2015@gmail.com'
+        pass: 'penelitianilmiah'
+)
 
 passport.serializeUser (user, done) ->
     done(null, user)
@@ -33,6 +41,14 @@ router.post '/SignUp', (req, res, next) ->
 
     user.save (err) ->
         return res.json(err) if err
+
+        transporter.sendMail(
+            from: 'perpustakaanonline2015@gmail.com'
+            to: req.body.email
+            subject: 'Verifikasi Email'
+            html: 'Silahkan verifikasi melalui alamat berikut : <a href="https://www.facebook.com/">Aplikasi Post Status</a>'
+        )
+
         res.json
             success: true
             pesan: 'Anda Berhasil SignUp'
