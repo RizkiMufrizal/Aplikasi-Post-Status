@@ -46,12 +46,24 @@ router.post '/SignUp', (req, res, next) ->
             from: 'perpustakaanonline2015@gmail.com'
             to: req.body.email
             subject: 'Verifikasi Email'
-            html: 'Silahkan verifikasi melalui alamat berikut : <a href="https://www.facebook.com/">Aplikasi Post Status</a>'
+            html: 'Silahkan verifikasi melalui alamat berikut : <a href="http://localhost:3000/api/user/Verifikasi/' + req.body.email + '">Aplikasi Post Status</a>'
         )
 
         res.json
             success: true
             pesan: 'Anda Berhasil SignUp'
+
+router.get '/Verifikasi/:email', (req, res, next) ->
+    User.findOne { email: req.params.email }, (err, user) ->
+        return res.json(err) if err
+
+        user.enable = true
+        user.save()
+
+        res.json(
+            'success': true
+            'info': 'Anda berhasil melakukan verifikasi, silahkan gunakan Aplikasi Post Status'
+        )
 
 router.post '/Login', (req, res, next) ->
     passport.authenticate('local', (err, user, info) ->
