@@ -40,6 +40,12 @@ mongoose.connect 'mongodb://localhost/Aplikasi-Post-Status', (err, res) ->
 if 'development' == app.get('env')
     app.use errorhandler()
 
+#deklarasikan controller
+UserController = require('./controller/UserController')
+
+#deklarasikan router url
+app.use '/api/user', UserController
+
 server = http.createServer(app)
 server.listen app.get('port'), ->
     console.log 'Server jalan di port : ' + app.get('port')
