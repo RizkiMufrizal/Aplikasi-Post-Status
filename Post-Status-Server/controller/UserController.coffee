@@ -30,12 +30,17 @@ passport.use new LocalStrategy((username, password, done) ->
             return done(null, false,
                 'pesan': 'password anda salah'
             )
+        unless user.enable is true
+            return done(null, false,
+                'pesan': 'email belum verifikasi'
+            )
         done null, user
 )
 
 router.post '/SignUp', (req, res, next) ->
     user = new User(
         email: req.body.email
+        nama: req.body.nama
         password: req.body.password
     )
 
@@ -60,24 +65,23 @@ router.get '/Verifikasi/:email', (req, res, next) ->
         user.enable = true
         user.save()
 
-        res.json(
-            'success': true
-            'info': 'Anda berhasil melakukan verifikasi, silahkan gunakan Aplikasi Post Status'
-        )
+        res.json
+            success: true
+            pesan: 'Anda berhasil melakukan verifikasi, silahkan gunakan Aplikasi Post Status'
 
 router.post '/Login', (req, res, next) ->
     passport.authenticate('local', (err, user, info) ->
-        if err or not user
-            return res.json(
-                message: 'login failed'
-                success: false
-            )
+        return res.json(err) if err
+
+        unless user
+            return res.json(info)
 
         req.logIn user, (err) ->
             return res.json(err) if err
             res.json
                 message: 'berhasil login'
                 username: user.email
+                nama: user.nama
                 success: true
     ) req, res
 
