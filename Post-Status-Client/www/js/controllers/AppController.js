@@ -1,6 +1,6 @@
 angular.module('App.controllers', ['App.services'])
 
-  .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, appService, userService) {
+  .controller('AppController', function($scope, $ionicModal, $timeout, $ionicPopup, appService, userService) {
 
     $scope.loginData = {};
 
@@ -52,36 +52,4 @@ angular.module('App.controllers', ['App.services'])
 
     checkEmailUser();
 
-  })
-
-  .controller('PlaylistsCtrl', function($scope, $ionicModal, $timeout, appService, userService) {
-
-    $scope.playlists = [
-      {
-        title: 'Reggae',
-        id: 1
-      },
-      {
-        title: 'Chill',
-        id: 2
-      },
-      {
-        title: 'Dubstep',
-        id: 3
-      },
-      {
-        title: 'Indie',
-        id: 4
-      },
-      {
-        title: 'Rap',
-        id: 5
-      },
-      {
-        title: 'Cowbell',
-        id: 6
-      }
-    ];
-  })
-
-  .controller('PlaylistCtrl', function($scope, $stateParams) {});
+  });
