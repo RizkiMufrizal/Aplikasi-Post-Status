@@ -17,7 +17,7 @@
                       <h2>{{d.nama}}</h2>
                       <p>{{d.keterangan}}</p>
 
-                      <a class="button button-clear" ng-click="showComment()">
+                      <a class="button button-clear" ng-click="showComment(d.nama, d.email, d._id)">
                           <i class="icon ion-chatbubbles positive"></i> {{d.comments.length}}
                       </a>
 
@@ -29,10 +29,6 @@
                           <i class="icon ion-clock"></i> {{d.tanggal | date:'dd MMMM yyyy, h:mm:ss a'}}
                       </div>
                   </div>
-                  <label class="item-input-wrapper">
-                      <i class="icon ion-edit placeholder-icon"></i>
-                      <input type="search" ng-model="inputPost.keterangan" placeholder="Tulis Status">
-                  </label>
               </div>
           </div>
   </ion-content>
