@@ -11,9 +11,9 @@ angular.module('App.services')
       signUp: function(user) {
         return $http.post(baseUrl + '/SignUp', user);
       },
-      setUser: function(username, email) {
-        user.username = username;
+      setUser: function(email, nama) {
         user.email = email;
+        user.nama = nama;
         return user;
       },
       getUser: function() {
