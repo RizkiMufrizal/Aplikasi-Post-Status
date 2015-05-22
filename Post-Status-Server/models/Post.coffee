@@ -5,8 +5,14 @@ Post = new Schema({
     email:
         type: 'String'
         require: true
+    nama:
+        type: 'String'
+        require: true
     keterangan:
         type: 'String'
+        require: true
+    tanggal:
+        type: 'Date'
         require: true
     comments:
         type: 'array'
