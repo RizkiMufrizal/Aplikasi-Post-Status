@@ -1,38 +1,61 @@
 angular.module('App.controllers', ['App.services'])
 
-  .controller('AppCtrl', function($scope, $ionicModal, $timeout, appService) {
-    // Form data for the login modal
+  .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, appService, userService) {
+
     $scope.loginData = {};
 
-    // Create the login modal that we will use later
-    $ionicModal.fromTemplateUrl('templates/login.html', {
-      scope: $scope
-    }).then(function(modal) {
-      $scope.modal = modal;
-    });
-
-    // Triggered in the login modal to close it
-    $scope.closeLogin = function() {
-      $scope.modal.hide();
-    };
-
-    // Open the login modal
-    $scope.login = function() {
-      $scope.modal.show();
-    };
-
-    // Perform the login action when the user submits the login form
     $scope.doLogin = function() {
-      console.log('Doing login', $scope.loginData);
+      userService.login($scope.loginData).success(function(data) {
 
-      appService.getAllPost().success(function(data) {
-        console.log(data);
+        if (data.success) {
+          var userPopup = $ionicPopup.show({
+            template: 'Anda Berhasil Login',
+            title: 'Info',
+            scope: $scope,
+            buttons: [{
+              text: '<b>OK</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                $scope.modal.hide();
+              }
+            }]
+          });
+          userPopup.then(function(res) {
+            ChatService.setUsername(res);
+            $scope.username = res;
+          });
+        } else {
+          var userPopup = $ionicPopup.show({
+            template: data.message,
+            title: 'Info',
+            scope: $scope,
+            buttons: [{
+              text: '<b>OK</b>',
+              type: 'button-positive'
+            }]
+          });
+        }
+
       });
-
     };
+
+    function checkEmailUser() {
+      if (!$scope.loginData.username) {
+        $ionicModal.fromTemplateUrl('templates/login.html', {
+          scope: $scope
+        }).then(function(modal) {
+          $scope.modal = modal;
+          $scope.modal.show();
+        });
+      }
+    }
+
+    checkEmailUser();
+
   })
 
-  .controller('PlaylistsCtrl', function($scope) {
+  .controller('PlaylistsCtrl', function($scope, $ionicModal, $timeout, appService, userService) {
+
     $scope.playlists = [
       {
         title: 'Reggae',
