@@ -3,14 +3,24 @@
     <h1 class="title">Comment to {{userPost.namaPost}}</h1>
   </ion-header-bar>
   <ion-content>
-    <form ng-submit="commentPost()">
       <div class="list">
-        <label class="item item-input">
-          <input placeholder="Kirim Komentar Mu" type="text" ng-model="inputComment.comment">
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Kirim</button>
-        </label>
+          <div ng-repeat="u in userPost.commentDetail">
+              <a class="item item-avatar" href="#">
+                <img src="img/ionic.png">
+                <h2>{{u.namaComment}}</h2>
+                <p>{{u.commentDetail}}</p>
+              </a>
+          </div>
+      </div>
+
+    <form ng-submit="commentPost()">
+        <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <input type="search" placeholder="Kirim Komentar Mu" ng-model="inputComment.comment">
+            </label>
+            <button type="submit" class="button button-clear">
+                Kirim
+            </button>
         </div>
     </form>
   </ion-content>
