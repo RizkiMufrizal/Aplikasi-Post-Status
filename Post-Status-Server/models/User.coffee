@@ -5,6 +5,7 @@ User = new Schema({
     email:
         type: 'String'
         require: true
+        unique: true
     nama:
         type: 'String'
         require: true
