@@ -80,7 +80,7 @@ router.post '/Login', (req, res, next) ->
             return res.json(err) if err
             res.json
                 message: 'berhasil login'
-                username: user.email
+                email: user.email
                 nama: user.nama
                 success: true
     ) req, res
