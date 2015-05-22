@@ -32,9 +32,10 @@ angular.module('App.controllers', ['App.services'])
       });
     };
 
-    $scope.showComment = function(nama, email, id) {
+    $scope.showComment = function(commentDetail, nama, email, id) {
       $scope.userPost.namaPost = nama;
       $scope.userPost.id = id;
+      $scope.userPost.commentDetail = commentDetail;
       $ionicModal.fromTemplateUrl('templates/createComment.html', {
         scope: $scope
       }).then(function(modal) {
@@ -50,8 +51,14 @@ angular.module('App.controllers', ['App.services'])
       comment.namaComment = userService.getUser().nama;
       comment.commentDetail = $scope.inputComment.comment;
 
+      $scope.userPost.commentDetail.push({
+        namaComment: userService.getUser().nama,
+        commentDetail: $scope.inputComment.comment
+      });
+
       appService.commentPost(comment).success(function(data) {
         getAllPost();
+        $scope.inputComment.comment = '';
       });
     };
 
