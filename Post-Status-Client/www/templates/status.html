@@ -16,12 +16,23 @@
                       <img src="img/ionic.png">
                       <h2>{{d.nama}}</h2>
                       <p>{{d.keterangan}}</p>
-                      <i class="icon ion-chatbubbles positive"></i> {{d.comments.length}}
-                      <i class="icon ion-heart assertive"></i> {{d.likes.length}}
+
+                      <a class="button button-clear" ng-click="showComment()">
+                          <i class="icon ion-chatbubbles positive"></i> {{d.comments.length}}
+                      </a>
+
+                      <a class="button button-clear" ng-click="likePost(d._id)">
+                          <i class="icon ion-heart assertive"></i> {{d.likes.length}}
+                      </a>
+
                       <div class="pull-left">
                           <i class="icon ion-clock"></i> {{d.tanggal | date:'dd MMMM yyyy, h:mm:ss a'}}
                       </div>
                   </div>
+                  <label class="item-input-wrapper">
+                      <i class="icon ion-edit placeholder-icon"></i>
+                      <input type="search" ng-model="inputPost.keterangan" placeholder="Tulis Status">
+                  </label>
               </div>
           </div>
   </ion-content>
