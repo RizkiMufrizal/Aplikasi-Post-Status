@@ -155,7 +155,7 @@ angular.module('App.controllers', ['App.services'])
     }
 
     function checkEmailUser() {
-      if (!$scope.loginData.username) {
+      if (!userService.getUser().email) {
         $ionicModal.fromTemplateUrl('templates/login.html', {
           scope: $scope
         }).then(function(modal) {
