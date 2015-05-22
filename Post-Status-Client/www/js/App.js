@@ -21,22 +21,22 @@ angular.module('App', ['ionic', 'App.services', 'App.controllers'])
   })
 
   .config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider
 
+    $stateProvider
       .state('app', {
         url: "/app",
         abstract: true,
         templateUrl: "templates/menu.html",
         controller: 'AppController'
       })
-      .state('app.playlists', {
-        url: "/playlists",
+      .state('app.status', {
+        url: "/status",
         views: {
           'menuContent': {
-            templateUrl: "templates/playlists.html"
+            templateUrl: "templates/status.html"
           }
         }
       });
 
-    $urlRouterProvider.otherwise('/app/playlists');
+    $urlRouterProvider.otherwise('/app/status');
   });
