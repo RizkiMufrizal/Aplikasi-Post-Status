@@ -19,7 +19,7 @@
                       <i class="icon ion-chatbubbles positive"></i> {{d.comments.length}}
                       <i class="icon ion-heart assertive"></i> {{d.likes.length}}
                       <div class="pull-left">
-                          <i class="icon ion-clock"></i> {{d.tanggal}}
+                          <i class="icon ion-clock"></i> {{d.tanggal | date:'dd MMMM yyyy, h:mm:ss a'}}
                       </div>
                   </div>
               </div>
