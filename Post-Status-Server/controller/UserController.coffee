@@ -24,15 +24,15 @@ passport.use new LocalStrategy((username, password, done) ->
 
         unless user
             return done(null, false,
-                'pesan': 'email anda salah'
+                'message': 'email anda salah'
             )
         unless user.password is password
             return done(null, false,
-                'pesan': 'password anda salah'
+                'message': 'password anda salah'
             )
         unless user.enable is true
             return done(null, false,
-                'pesan': 'email belum verifikasi'
+                'message': 'email belum verifikasi'
             )
         done null, user
 )
@@ -56,7 +56,7 @@ router.post '/SignUp', (req, res, next) ->
 
         res.json
             success: true
-            pesan: 'Anda Berhasil SignUp'
+            message: 'Anda Berhasil SignUp'
 
 router.get '/Verifikasi/:email', (req, res, next) ->
     User.findOne { email: req.params.email }, (err, user) ->
@@ -67,7 +67,7 @@ router.get '/Verifikasi/:email', (req, res, next) ->
 
         res.json
             success: true
-            pesan: 'Anda berhasil melakukan verifikasi, silahkan gunakan Aplikasi Post Status'
+            message: 'Anda berhasil melakukan verifikasi, silahkan gunakan Aplikasi Post Status'
 
 router.post '/Login', (req, res, next) ->
     passport.authenticate('local', (err, user, info) ->
