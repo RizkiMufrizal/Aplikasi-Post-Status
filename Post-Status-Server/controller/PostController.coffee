@@ -22,7 +22,7 @@ router.post '/SavePost', (req, res, next) ->
 
         res.json
             success: true
-            pesan: 'Data Tersimpan'
+            message: 'Data Tersimpan'
 
 router.post '/Comment', (req, res, next) ->
     Post.findOne { email : req.body.email }, (err, post) ->
@@ -36,7 +36,7 @@ router.post '/Comment', (req, res, next) ->
 
         res.json
             success: true
-            pesan: 'Comment Tersimpan'
+            message: 'Comment Tersimpan'
 
 router.post '/Like', (req, res, next) ->
     Post.findOne { email: req.body.email }, (err, post) ->
@@ -49,6 +49,6 @@ router.post '/Like', (req, res, next) ->
 
         res.json
             success: true
-            pesan: 'Like Berhasil'
+            message: 'Like Berhasil'
 
 module.exports = router
