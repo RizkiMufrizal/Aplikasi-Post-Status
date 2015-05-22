@@ -1,0 +1,28 @@
+<ion-view view-title="Status">
+  <ion-content>
+      <div class="bar bar-header item-input-inset">
+              <label class="item-input-wrapper">
+                  <i class="icon ion-edit placeholder-icon"></i>
+                  <input type="search" ng-model="inputPost.keterangan" placeholder="Tulis Status">
+              </label>
+              <button ng-click="createPost(inputPost)" class="button button-clear">
+                  <i class="ion-paper-airplane"></i>
+              </button>
+          </div>
+
+          <div ng-repeat="d in dataPost">
+              <div class="card stable-bg ink ink-dark">
+                  <div class="item item-avatar">
+                      <img src="img/ionic.png">
+                      <h2>{{d.nama}}</h2>
+                      <p>{{d.keterangan}}</p>
+                      <i class="icon ion-chatbubbles positive"></i> {{d.comments.length}}
+                      <i class="icon ion-heart assertive"></i> {{d.likes.length}}
+                      <div class="pull-left">
+                          <i class="icon ion-clock"></i> {{d.tanggal}}
+                      </div>
+                  </div>
+              </div>
+          </div>
+  </ion-content>
+</ion-view>
