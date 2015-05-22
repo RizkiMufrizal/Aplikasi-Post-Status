@@ -2,6 +2,17 @@
   <ion-content class="has-header">
     <div class="row">
       <div class="col">
+
+         <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-edit placeholder-icon"></i>
+                <input type="search" ng-model="inputPost.keterangan" placeholder="Tulis Status">
+            </label>
+            <button ng-click="createPost(inputPost)" class="button button-clear">
+                <i class="ion-paper-airplane"></i>
+            </button>
+        </div>
+
         <div ng-repeat="d in dataPost">
             <div class="list card">
               <div class="item item-avatar"><img src="img/ionic.png"/>
