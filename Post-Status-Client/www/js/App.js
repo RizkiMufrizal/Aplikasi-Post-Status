@@ -36,6 +36,14 @@ angular.module('App', ['ionic', 'App.services', 'App.controllers'])
             templateUrl: "templates/status.html"
           }
         }
+      })
+      .state('app.about', {
+        url: '/about',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/about.html'
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/app/status');
