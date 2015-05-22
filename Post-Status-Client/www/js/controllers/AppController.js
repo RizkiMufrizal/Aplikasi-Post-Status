@@ -4,7 +4,7 @@ angular.module('App.controllers', ['App.services'])
 
     $scope.loginData = {};
 
-    $scope.doLogin = function() {
+    $scope.login = function() {
       userService.login($scope.loginData).success(function(data) {
 
         if (data.success) {
@@ -16,7 +16,7 @@ angular.module('App.controllers', ['App.services'])
               text: '<b>OK</b>',
               type: 'button-positive',
               onTap: function(e) {
-                $scope.modal.hide();
+                $scope.modalLogin.hide();
               }
             }]
           });
@@ -39,13 +39,33 @@ angular.module('App.controllers', ['App.services'])
       });
     };
 
+    $scope.signUp = function() {
+      $ionicModal.fromTemplateUrl('templates/register.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modalRegister = modal;
+        $scope.modalRegister.show();
+        $scope.modalLogin.hide();
+      });
+    };
+
+    $scope.signIn = function() {
+      $ionicModal.fromTemplateUrl('templates/login.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modalLogin = modal;
+        $scope.modalLogin.show();
+        $scope.modalRegister.hide();
+      });
+    };
+
     function checkEmailUser() {
       if (!$scope.loginData.username) {
         $ionicModal.fromTemplateUrl('templates/login.html', {
           scope: $scope
         }).then(function(modal) {
-          $scope.modal = modal;
-          $scope.modal.show();
+          $scope.modalLogin = modal;
+          $scope.modalLogin.show();
         });
       }
     }
