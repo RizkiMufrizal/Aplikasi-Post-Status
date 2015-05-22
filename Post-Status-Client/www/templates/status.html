@@ -1,46 +1,46 @@
 <ion-view view-title="Status">
-  <ion-content class="has-header">
-    <div class="row">
-      <div class="col">
+    <ion-content class="has-header">
+        <div class="row">
+            <div class="col">
 
-         <div class="bar bar-header item-input-inset">
-            <label class="item-input-wrapper">
-                <i class="icon ion-edit placeholder-icon"></i>
-                <input type="search" ng-model="inputPost.keterangan" placeholder="Tulis Status">
-            </label>
-            <button ng-click="createPost(inputPost)" class="button button-clear">
-                <i class="ion-paper-airplane"></i>
-            </button>
-        </div>
+                <div class="bar bar-header item-input-inset">
+                    <label class="item-input-wrapper">
+                        <i class="icon ion-edit placeholder-icon"></i>
+                        <input type="search" ng-model="inputPost.keterangan" placeholder="Tulis Status">
+                    </label>
+                    <button ng-click="createPost(inputPost)" class="button button-clear">
+                        <i class="ion-paper-airplane"></i>
+                    </button>
+                </div>
 
-        <div ng-repeat="d in dataPost">
-            <div class="list card">
-              <div class="item item-avatar"><img src="img/ionic.png"/>
-                <h2>{{d.nama}}</h2>
-                <p>{{hitungWaktu(d.tanggal)}}</p>
-              </div>
-              <div class="item item-body">
-                <p>
-                  {{d.keterangan}}
-                </p>
-                <p>
-                    <a href="#" class="subdued">{{d.likes.length}} Like</a>
-                    <a href="#" class="subdued">{{d.comments.length}} Comments</a>
-                </p>
-              </div>
-              <div style="border-color:red" class="item tabs tabs-secondary tabs-icon-left">
-                  <a class="tab-item" ng-click="likePost(d._id)">
-                      <i class="icon ion-thumbsup"></i>Like
-                  </a>
-                  <a href="#" class="tab-item" ng-click="showComment(d.comments, d.nama, d.email, d._id)">
-                      <i class="icon ion-chatbox"></i>Comment
-                  </a>
-                  <a href="#" class="tab-item"><i class="icon ion-share"></i>Share
-                  </a>
-              </div>
+                <div ng-repeat="d in dataPost">
+                    <div class="list card">
+                        <div class="item item-avatar">
+                            <img src="img/ionic.png" />
+                            <h2>{{d.nama}}</h2>
+                            <p>{{hitungWaktu(d.tanggal)}}</p>
+                        </div>
+                        <div class="item item-body">
+                            <p>
+                                {{d.keterangan}}
+                            </p>
+                            <p>
+                                <a href="#" class="subdued">{{d.likes.length}} Like</a>
+                                <a href="#" class="subdued">{{d.comments.length}} Comments</a>
+                            </p>
+                        </div>
+                        <div style="border-color:red" class="item tabs tabs-secondary tabs-icon-left">
+                            <a class="tab-item" ng-click="likePost(d._id)">
+                                <i class="icon ion-thumbsup"></i>Like
+                            </a>
+                            <a href="#" class="tab-item" ng-click="showComment(d.comments, d.nama, d.email, d._id)">
+                                <i class="icon ion-chatbox"></i>Comment
+                            </a>
+                            <a href="#" class="tab-item"><i class="icon ion-share"></i>Share</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-      </div>
-    </div>
-  </ion-content>
+    </ion-content>
 </ion-view>
