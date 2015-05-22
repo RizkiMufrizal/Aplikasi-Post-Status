@@ -6,7 +6,9 @@ angular.module('App.controllers', ['App.services'])
     $scope.registerData = {};
     $scope.inputPost = {};
     $scope.dataPost = {};
-    $scope.enable = false;
+    $scope.modalComment = {};
+    $scope.userPost = {};
+    $scope.inputComment = {};
 
     $scope.createPost = function(post) {
       var dataPost = {};
@@ -30,12 +32,27 @@ angular.module('App.controllers', ['App.services'])
       });
     };
 
-    $scope.showComment = function() {
-      $scope.enable = true;
+    $scope.showComment = function(nama, email, id) {
+      $scope.userPost.namaPost = nama;
+      $scope.userPost.id = id;
+      $ionicModal.fromTemplateUrl('templates/createComment.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modalComment = modal;
+        $scope.modalComment.show();
+      });
     };
 
-    $scope.commentPost = function(c) {
+    $scope.commentPost = function() {
       var comment = {};
+      comment.id = $scope.userPost.id;
+      comment.emailComment = userService.getUser().email;
+      comment.namaComment = userService.getUser().nama;
+      comment.commentDetail = $scope.inputComment.comment;
+
+      appService.commentPost(comment).success(function(data) {
+        getAllPost();
+      });
     };
 
     $scope.login = function() {
