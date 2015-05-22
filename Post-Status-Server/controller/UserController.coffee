@@ -1,6 +1,7 @@
 express = require 'express'
 router = express.Router()
 nodemailer = require 'nodemailer'
+bcrypt = require 'bcrypt'
 passport = require 'passport'
 LocalStrategy = require('passport-local').Strategy
 User = require('../models/User')
@@ -22,41 +23,45 @@ passport.use new LocalStrategy((username, password, done) ->
     User.findOne { email: username }, (err, user) ->
         return done(err) if err
 
-        unless user
-            return done(null, false,
-                'message': 'email anda salah'
-            )
-        unless user.password is password
-            return done(null, false,
-                'message': 'password anda salah'
-            )
-        unless user.enable is true
-            return done(null, false,
-                'message': 'email belum verifikasi'
-            )
-        done null, user
+        bcrypt.compare password, user.password, (err, res) ->
+            unless user
+                return done(null, false,
+                    'message': 'email anda salah'
+                )
+            unless user.enable is true
+                return done(null, false,
+                    'message': 'email belum verifikasi'
+                )
+            unless res is true
+                return done(null, false,
+                    'message': 'password anda salah'
+                )
+            done null, user
 )
 
 router.post '/SignUp', (req, res, next) ->
-    user = new User(
-        email: req.body.email
-        nama: req.body.nama
-        password: req.body.password
-    )
 
-    user.save (err) ->
-        return res.json(err) if err
+    bcrypt.genSalt 10, (err, salt) ->
+        bcrypt.hash req.body.password, salt, (err, hash) ->
+            user = new User(
+                email: req.body.email
+                nama: req.body.nama
+                password: hash
+            )
 
-        transporter.sendMail(
-            from: 'perpustakaanonline2015@gmail.com'
-            to: req.body.email
-            subject: 'Verifikasi Email'
-            html: 'Silahkan verifikasi melalui alamat berikut : <a href="http://localhost:3000/api/user/Verifikasi/' + req.body.email + '">Aplikasi Post Status</a>'
-        )
+            user.save (err) ->
+                return res.json(err) if err
 
-        res.json
-            success: true
-            message: 'Anda Berhasil SignUp'
+                transporter.sendMail(
+                    from: 'perpustakaanonline2015@gmail.com'
+                    to: req.body.email
+                    subject: 'Verifikasi Email'
+                    html: 'Silahkan verifikasi melalui alamat berikut : <a href="http://localhost:3000/api/user/Verifikasi/' + req.body.email + '">Aplikasi Post Status</a>'
+                )
+
+                res.json
+                    success: true
+                    message: 'Anda Berhasil SignUp'
 
 router.get '/Verifikasi/:email', (req, res, next) ->
     User.findOne { email: req.params.email }, (err, user) ->
