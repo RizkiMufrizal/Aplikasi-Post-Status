@@ -30,6 +30,7 @@ router.post '/Comment', (req, res, next) ->
 
         post.comments.push
             emailComment: req.body.emailComment
+            namaComment: req.body.namaComment
             commentDetail: req.body.commentDetail
 
         post.save()
