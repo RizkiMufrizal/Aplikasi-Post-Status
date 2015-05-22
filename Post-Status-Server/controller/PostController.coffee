@@ -1,11 +1,20 @@
 express = require 'express'
+moment = require 'moment'
 router = express.Router()
 Post = require('../models/Post')
 
-router.post '/Post', (req, res, next) ->
+router.get '/AllPost', (req, res, next) ->
+    Post.find({}).sort( { tanggal: 'desc' } ).exec (err, posts) ->
+        return res.json(err) if err
+
+        res.json(posts)
+
+router.post '/SavePost', (req, res, next) ->
     post = new Post(
         email: req.body.email
+        nama: req.body.nama
         keterangan: req.body.keterangan
+        tanggal: moment().format()
     )
 
     post.save (err) ->
@@ -41,3 +50,5 @@ router.post '/Like', (req, res, next) ->
         res.json
             success: true
             pesan: 'Like Berhasil'
+
+module.exports = router
