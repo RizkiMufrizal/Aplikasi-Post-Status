@@ -25,7 +25,7 @@ router.post '/SavePost', (req, res, next) ->
             message: 'Data Tersimpan'
 
 router.post '/Comment', (req, res, next) ->
-    Post.findOne { email : req.body.email }, (err, post) ->
+    Post.findOne { _id: req.body.id }, (err, post) ->
         return res.json(err) if err
 
         post.comments.push
@@ -39,7 +39,7 @@ router.post '/Comment', (req, res, next) ->
             message: 'Comment Tersimpan'
 
 router.post '/Like', (req, res, next) ->
-    Post.findOne { email: req.body.email }, (err, post) ->
+    Post.findOne { _id: req.body.id }, (err, post) ->
         return res.json(err) if err
 
         post.likes.push
