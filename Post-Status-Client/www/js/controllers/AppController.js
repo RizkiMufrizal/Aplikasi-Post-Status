@@ -169,4 +169,8 @@ angular.module('App.controllers', ['App.services'])
 
     checkEmailUser();
 
+    $scope.hitungWaktu = function(t) {
+      return moment(new Date()).preciseDiff(t);
+    };
+
   });
