@@ -8,10 +8,12 @@ LocalStrategy = require('passport-local').Strategy
 errorhandler = require 'errorhandler'
 logger = require 'morgan'
 http = require 'http'
+cors = require 'cors'
 
 app = express()
 app.set 'port', process.env.PORT || 3000
 app.use logger('dev')
+app.use cors()
 app.use methodOverride()
 app.use expressSession(
     resave: true,
@@ -25,12 +27,6 @@ app.use bodyParser.urlencoded(
 app.use passport.initialize()
 app.use passport.session()
 
-app.all '/*', (req, res, next) ->
-    res.header 'Access-Control-Allow-Origin', req.headers.origin or '*'
-    res.header 'Access-Control-Allow-Headers', 'X-Request-With, Content-Type'
-    res.header 'Access-Control-Allow-Methods', 'GET'
-    next()
-
 mongoose.connect 'mongodb://localhost/Aplikasi-Post-Status', (err, res) ->
     if err
         console.log 'koneksi mongodb gagal'
@@ -42,9 +38,11 @@ if 'development' == app.get('env')
 
 #deklarasikan controller
 UserController = require('./controller/UserController')
+PostController = require('./controller/PostController')
 
 #deklarasikan router url
 app.use '/api/user', UserController
+app.use '/api/post', PostController
 
 server = http.createServer(app)
 server.listen app.get('port'), ->
