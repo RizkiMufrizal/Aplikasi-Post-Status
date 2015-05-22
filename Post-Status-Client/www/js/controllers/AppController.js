@@ -4,11 +4,26 @@ angular.module('App.controllers', ['App.services'])
 
     $scope.loginData = {};
     $scope.registerData = {};
+    $scope.inputPost = {};
+    $scope.dataPost = {};
+
+    $scope.createPost = function(post) {
+      var dataPost = {};
+      dataPost.keterangan = post.keterangan;
+      dataPost.nama = userService.getUser().nama;
+      dataPost.email = userService.getUser().email;
+
+      appService.savePost(dataPost).success(function(data) {
+        $scope.inputPost.keterangan = '';
+        getAllPost();
+      });
+    }
 
     $scope.login = function() {
       userService.login($scope.loginData).success(function(data) {
 
         if (data.success) {
+          getAllPost();
           var userPopup = $ionicPopup.show({
             template: 'Anda Berhasil Login',
             title: 'Info',
@@ -90,6 +105,12 @@ angular.module('App.controllers', ['App.services'])
       });
     };
 
+    function getAllPost() {
+      appService.getAllPost().success(function(data) {
+        $scope.dataPost = data;
+      });
+    }
+
     function checkEmailUser() {
       if (!$scope.loginData.username) {
         $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -98,6 +119,8 @@ angular.module('App.controllers', ['App.services'])
           $scope.modalLogin = modal;
           $scope.modalLogin.show();
         });
+      } else {
+        getAllPost();
       }
     }
 
