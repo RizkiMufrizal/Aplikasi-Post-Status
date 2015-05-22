@@ -6,6 +6,7 @@ angular.module('App.controllers', ['App.services'])
     $scope.registerData = {};
     $scope.inputPost = {};
     $scope.dataPost = {};
+    $scope.enable = false;
 
     $scope.createPost = function(post) {
       var dataPost = {};
@@ -17,7 +18,25 @@ angular.module('App.controllers', ['App.services'])
         $scope.inputPost.keterangan = '';
         getAllPost();
       });
-    }
+    };
+
+    $scope.likePost = function(l) {
+      var like = {};
+      like.id = l;
+      like.emailLike = userService.getUser().email;
+
+      appService.likePost(like).success(function(data) {
+        getAllPost();
+      });
+    };
+
+    $scope.showComment = function() {
+      $scope.enable = true;
+    };
+
+    $scope.commentPost = function(c) {
+      var comment = {};
+    };
 
     $scope.login = function() {
       userService.login($scope.loginData).success(function(data) {
