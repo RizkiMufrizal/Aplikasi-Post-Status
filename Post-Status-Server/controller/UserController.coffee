@@ -23,11 +23,12 @@ passport.use new LocalStrategy((username, password, done) ->
     User.findOne { email: username }, (err, user) ->
         return done(err) if err
 
+        unless user
+            return done(null, false,
+                'message': 'email anda salah'
+            )
+        
         bcrypt.compare password, user.password, (err, res) ->
-            unless user
-                return done(null, false,
-                    'message': 'email anda salah'
-                )
             unless user.enable is true
                 return done(null, false,
                     'message': 'email belum verifikasi'
