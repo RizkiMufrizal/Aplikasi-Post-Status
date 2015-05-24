@@ -1,8 +1,8 @@
 angular.module('App.services', [])
   .factory('appService', function($http) {
 
-    //var baseUrl = 'http://10.0.2.2:3000/api/post';
-    var baseUrl = 'http://localhost:3000/api/post';
+    var baseUrl = 'http://10.0.2.2:3000/api/post';
+    //var baseUrl = 'http://localhost:3000/api/post';
 
     return {
       getAllPost: function() {
