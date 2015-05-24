@@ -126,7 +126,7 @@ angular.module('App.controllers', ['App.services'])
           $scope.registerData.password = '';
 
           var userPopup = $ionicPopup.show({
-            template: data.message,
+            template: data.message + ', Silahkan verifikasi email anda',
             title: 'Info',
             scope: $scope,
             buttons: [{
