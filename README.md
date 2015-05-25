@@ -38,3 +38,6 @@ chmod a+x zipalign
 ```
 
 -	file aplikasi_post_status.apk digenerate di dalam 1 folder dengan apk sebelumnya
+
+referensi:
+- http://ionicframework.com/docs/guide/publishing.html
